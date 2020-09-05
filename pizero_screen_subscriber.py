@@ -40,7 +40,7 @@ def on_message(client, userdata, msg):
         # check_call(['sudo', 'reboot'])
         os.system("sudo reboot")
     if "SHUTDOWN" in m:
-        os.system("systemctl reboot -i")
+        os.system("sudo systemctl reboot -i")
         # check_call(['sudo', 'poweroff'])
 
     myScreen.message(m, defaultColor, bg)
