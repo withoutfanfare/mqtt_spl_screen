@@ -1,0 +1,5 @@
+pizero_screen_config = {
+    'mqtt_broker': 'localhost',
+    'mqtt_port': 1883,
+    'mqtt_topic': 'house/notify/#'
+}
