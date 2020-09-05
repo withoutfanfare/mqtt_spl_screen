@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import os
 import logging
 
 from spl_screen import SPScreen
@@ -36,7 +37,8 @@ def on_message(client, userdata, msg):
     if "OK" in m:
         bg = pendingBg
     if "REBOOT" in m:
-        check_call(['sudo', 'reboot'])
+        # check_call(['sudo', 'reboot'])
+        os.system("sudo reboot")
     if "SHUTDOWN" in m:
         check_call(['sudo', 'poweroff'])
 
