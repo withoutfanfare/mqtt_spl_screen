@@ -5,7 +5,7 @@ import logging
 from spl_screen import SPScreen
 from pizero_screen_config import pizero_screen_config
 
-logging.basicConfig(filename='debug.log', level=logging.DEBUG)
+logging.basicConfig(filename='/tmp/debug.log', level=logging.DEBUG)
 
 MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
@@ -21,9 +21,11 @@ defaultColor = '#FFFFFF'
 myScreen = SPScreen()
 client = mqtt.Client()
 
+myScreen.message("Initialising...", defaultColor, defaultBg)
+
 def on_connect(client, userdata, flags, rc):
-    # print("Connected with result code "+str(rc))
-    myScreen.message('Connected', defaultColor, initBg)
+    # logger.info("Connected with result code " + str(rc))
+    myScreen.message('Connected.', defaultColor, initBg)
     client.subscribe(MQTT_TOPIC)
 
 
@@ -43,8 +45,11 @@ def on_message(client, userdata, msg):
 
     myScreen.message(m, defaultColor, bg)
 
+
 client.on_connect = on_connect
 client.on_message = on_message
 
+
 client.connect(MQTT_BROKER, 1883)
 client.loop_forever()
+
