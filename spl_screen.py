@@ -48,7 +48,7 @@ class SPScreen(object):
         self.bottom = self.height - self.padding
         self.x = 5
 
-        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
+        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 23)
 
         self.backlight = digitalio.DigitalInOut(board.D22)
         self.backlight.switch_to_output()
@@ -70,18 +70,11 @@ class SPScreen(object):
         self.clear(bg)
         self.y = self.top
 
-        print(message.split(' @ '))
-
-        parts = message.split(' @ ')
-        print(parts)
-        print(color)
-        print(bg)
-
+        parts = message.split('|')
         for x in parts:
-            print(x)
             self.draw.text((self.x, self.y), x, font=self.font, fill=color)
             self.y += self.font.getsize(x)[1]
-            print(self.y)
+            self.y += 7
 
         self.disp.image(self.image, self.rotation)
         time.sleep(0.1)
