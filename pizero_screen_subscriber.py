@@ -22,22 +22,22 @@ defaultColor = '#FFFFFF'
 myScreen = SPScreen()
 client = mqtt.Client()
 
-myScreen.message("Initialising...", defaultColor, defaultBg)
+myScreen.message("Please Wait", defaultColor, defaultBg)
 
 def on_connect(client, userdata, flags, rc):
     # logger.info("Connected with result code " + str(rc))
-    myScreen.message('Connected.', defaultColor, initBg)
+    myScreen.message('Connected', defaultColor, initBg)
     client.subscribe(MQTT_TOPIC)
 
 
 def on_message(client, userdata, msg):
     m = msg.payload.decode('utf-8')
     bg = defaultBg
-    if "UP @" in m:
+    if "UP @ " in m:
         bg = successBg
-    if "DOWN @" in m:
+    if "DOWN @ " in m:
         bg = errorBg
-    if "OK" in m:
+    if "HEARTBEAT @ " in m:
         bg = pendingBg
     if "REBOOT" in m:
         os.system("sudo systemctl reboot -i")
