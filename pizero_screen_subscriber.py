@@ -81,7 +81,7 @@ def shutdownMessage(screen, msg, textColor, bgColor):
 def on_connect(client, userdata, flags, rc):
     logging.info("Connected with result code " + str(rc))
     client.subscribe(MQTT_TOPIC)
-    return connectMessage('Connected', "#FFFFFF", (16, 23, 31))
+    # return connectMessage('Connected', "#FFFFFF", (16, 23, 31))
 
 #
 #
