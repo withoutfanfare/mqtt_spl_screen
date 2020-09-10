@@ -48,7 +48,7 @@ class SPScreen(object):
         self.bottom = self.height - self.padding
         self.x = 5
 
-        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 23)
+        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
 
         self.backlight = digitalio.DigitalInOut(board.D22)
         self.backlight.switch_to_output()
@@ -74,7 +74,7 @@ class SPScreen(object):
         for x in parts:
             self.draw.text((self.x, self.y), x, font=self.font, fill=color)
             self.y += self.font.getsize(x)[1]
-            self.y += 7
+            self.y += 9
 
         self.disp.image(self.image, self.rotation)
         time.sleep(0.1)
