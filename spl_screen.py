@@ -68,8 +68,19 @@ class SPScreen(object):
 
     def message(self, message, color, bg):
         self.clear(bg)
-
         self.y = self.top
-        self.draw.text((self.x, self.y), message, font=self.font, fill=color)
+
+        print(word.split(' @ '))
+
+        fs = "A"
+
+        parts = word.split(' @ ')
+
+        for x in parts:
+            print(x)
+            self.draw.text((self.x, self.y), x, font=self.font, fill=color)
+            self.y += font.getsize(A)
+            print(self.y)
+
         self.disp.image(self.image, self.rotation)
         time.sleep(0.1)
