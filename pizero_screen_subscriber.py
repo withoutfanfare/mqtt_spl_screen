@@ -30,6 +30,7 @@ defaultColor = '#FFFFFF'
 # MiniPiTft
 #
 myScreen = SPScreen()
+myScreen.message("Initialising...", defaultColor, defaultBg)
 
 #
 # MQTT Client will listen for topic set in config
