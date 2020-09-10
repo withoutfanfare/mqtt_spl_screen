@@ -2,6 +2,7 @@
 #
 #
 import os
+import time
 import logging
 import paho.mqtt.client as mqtt
 from spl_screen import SPScreen
@@ -30,7 +31,7 @@ defaultColor = '#FFFFFF'
 # MiniPiTft
 #
 myScreen = SPScreen()
-myScreen.message("Initialising...", defaultColor, defaultBg)
+myScreen.message("Initialising...", defaultColor, initBg)
 
 #
 # MQTT Client will listen for topic set in config
@@ -40,38 +41,39 @@ client = mqtt.Client()
 #
 #
 #
-def connectMessage(msg):
-    myScreen.message(msg, defaultColor, initBg)
+def connectMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
 
 #
 #
 #
-def upMessage(msg):
-    myScreen.message(msg, defaultColor, successBg)
+def upMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
 
 #
 #
 #
-def downMessage(msg):
-    myScreen.message(msg, defaultColor, errorBg)
+def downMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
 
 #
 #
 #
-def heartbeatMessage(msg):
-    myScreen.message(msg, defaultColor, pendingBg)
+def heartbeatMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
 
 #
 #
 #
-def rebootMessage(msg):
-    myScreen.message(msg, defaultColor, defaultBg)
+def rebootMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
 
 #
 #
 #
-def shutdownMessage(msg):
-    myScreen.message(msg, defaultColor, defaultBg)
+def shutdownMessage(screen, msg, textColor, bgColor):
+    screen.message(msg, textColor, bgColor)
+    screen.backlightOff()
 
 #
 #
@@ -79,7 +81,7 @@ def shutdownMessage(msg):
 def on_connect(client, userdata, flags, rc):
     logging.info("Connected with result code " + str(rc))
     client.subscribe(MQTT_TOPIC)
-    return connectMessage('Connected')
+    return connectMessage('Connected', defaultColor, initBg)
 
 #
 #
@@ -87,17 +89,17 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     m = msg.payload.decode('utf-8')
     if "UP @" in m:
-        return upMessage(m)
+        return upMessage(myScreen, m, defaultColor, successBg)
     if "DOWN @" in m:
-        return downMessage(m)
+        return downMessage(myScreen, m, defaultColor, errorBg)
     if "OK" in m:
-        return heartbeatMessage(m)
+        return heartbeatMessage(myScreen, m, defaultColor, pendingBg)
     if "REBOOT" in m:
         os.system("sudo systemctl reboot -i")
-        return rebootMessage(m)
+        return rebootMessage(myScreen, m, defaultColor, defaultBg)
     if "SHUTDOWN" in m:
         os.system("sudo shutdown -h now")
-        return shutdownMessage(m)
+        return shutdownMessage(myScreen, m, defaultColor, defaultBg)
 
 
 #
