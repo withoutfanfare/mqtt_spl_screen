@@ -17,7 +17,7 @@ class SPScreen(object):
         # Config for display baudrate (default max is 24mhz):
         self.BAUDRATE = 64000000
         self.spi = board.SPI()
-        self.defaultBg = (16, 23, 31)
+        self.defaultBg = (44, 55, 72)
 
         # Create the ST7789 display:
         self.disp = st7789.ST7789(
