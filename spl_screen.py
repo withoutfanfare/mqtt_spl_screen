@@ -18,7 +18,6 @@ class SPScreen(object):
         self.BAUDRATE = 64000000
         self.spi = board.SPI()
         self.defaultBg = (44, 55, 72)
-        self.y = 0
 
         # Create the ST7789 display:
         self.disp = st7789.ST7789(
@@ -69,7 +68,7 @@ class SPScreen(object):
 
     def message(self, message, color, bg):
         self.clear(bg)
-        # self.y = self.top
+        self.y = self.top
 
         parts = message.split('|')
         for x in parts:
