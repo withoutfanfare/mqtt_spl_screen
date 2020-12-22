@@ -11,11 +11,13 @@ MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
-defaultBg = (16, 23, 31)
-initBg = (78, 3, 97)
-errorBg = (115, 11, 0)
-successBg = (0, 102, 42)
-pendingBg = (94, 0, 115)
+defaultBg = (44, 55, 72)
+initBg = (95, 84, 181)
+# errorBg = (115, 11, 0)
+errorBg = (199, 46, 46)
+# successBg = (0, 102, 42)
+successBg = (36, 141, 98)
+pendingBg = (95, 84, 181)
 
 defaultColor = '#FFFFFF'
 
