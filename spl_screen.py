@@ -18,6 +18,7 @@ class SPScreen(object):
         self.BAUDRATE = 64000000
         self.spi = board.SPI()
         self.defaultBg = (44, 55, 72)
+        self.y = 0
 
         # Create the ST7789 display:
         self.disp = st7789.ST7789(
@@ -48,7 +49,7 @@ class SPScreen(object):
         self.bottom = self.height - self.padding
         self.x = 5
 
-        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+        self.font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
 
         self.backlight = digitalio.DigitalInOut(board.D22)
         self.backlight.switch_to_output()
