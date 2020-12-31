@@ -17,7 +17,7 @@ class SPScreen(object):
         # Config for display baudrate (default max is 24mhz):
         self.BAUDRATE = 64000000
         self.spi = board.SPI()
-        self.defaultBg = (44, 55, 72)
+        self.defaultBg = (16, 23, 31)
 
         # Create the ST7789 display:
         self.disp = st7789.ST7789(
@@ -68,7 +68,7 @@ class SPScreen(object):
 
     def message(self, message, color, bg):
         self.clear(bg)
-        self.y = self.top
+        # self.y = self.top
 
         parts = message.split('|')
         for x in parts:
@@ -77,4 +77,4 @@ class SPScreen(object):
             self.y += 9
 
         self.disp.image(self.image, self.rotation)
-        time.sleep(0.1)
+        # time.sleep(0.1)

@@ -11,35 +11,37 @@ MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
-defaultBg = (44, 55, 72)
-initBg = (95, 84, 181)
-# errorBg = (115, 11, 0)
-errorBg = (199, 46, 46)
-# successBg = (0, 102, 42)
-successBg = (36, 141, 98)
-pendingBg = (95, 84, 181)
+defaultBg = (16, 23, 31)
+initBg = (78, 3, 97)
+errorBg = (115, 11, 0)
+successBg = (0, 102, 42)
+pendingBg = (94, 0, 115)
 
 defaultColor = '#FFFFFF'
 
 myScreen = SPScreen()
 client = mqtt.Client()
 
-myScreen.message("Please Wait", defaultColor, defaultBg)
+myScreen.message("Initialising...", defaultColor, defaultBg)
 
 def on_connect(client, userdata, flags, rc):
     # logger.info("Connected with result code " + str(rc))
-    myScreen.message('Connected', defaultColor, initBg)
+    myScreen.message('Connected.', defaultColor, initBg)
     client.subscribe(MQTT_TOPIC)
 
 
 def on_message(client, userdata, msg):
     m = msg.payload.decode('utf-8')
     bg = defaultBg
-    if "UP @ " in m:
+    if "UP @" in m:
         bg = successBg
-    if "DOWN @ " in m:
+    if "DOWN @" in m:
         bg = errorBg
-    if "HEARTBEAT @ " in m:
+    if "OK" in m:
+        bg = pendingBg
+    if "HEARTBEAT" in m:
+        bg = pendingBg
+    if "TEMP" in m:
         bg = pendingBg
     if "REBOOT" in m:
         os.system("sudo systemctl reboot -i")
