@@ -2,6 +2,9 @@ import paho.mqtt.client as mqtt
 import os
 import logging
 
+import digitalio
+import board
+
 from spl_screen import SPScreen
 from pizero_screen_config import pizero_screen_config
 
@@ -11,6 +14,8 @@ MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
+MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/temp/puck/#',1)]
+
 defaultBg = (16, 23, 31)
 initBg = (78, 3, 97)
 errorBg = (115, 11, 0)
@@ -18,6 +23,14 @@ successBg = (0, 102, 42)
 pendingBg = (94, 0, 115)
 
 defaultColor = '#FFFFFF'
+
+buttonA = digitalio.DigitalInOut(board.D23)
+buttonB = digitalio.DigitalInOut(board.D24)
+buttonA.switch_to_input(pull=digitalio.Pull.UP)
+buttonB.switch_to_input(pull=digitalio.Pull.UP)
+
+pressedA = 0
+pressedB = 0
 
 myScreen = SPScreen()
 client = mqtt.Client()
@@ -54,6 +67,18 @@ def on_message(client, userdata, msg):
 client.on_connect = on_connect
 client.on_message = on_message
 
+if buttonB.value and not buttonA.value:
+    if pressedB == 0:
+        pressedB = 1
+        myScreen.message("Reboot", defaultColor, pendingBg)
+        check_call(['sudo', 'reboot'])
+        pressedB = 0
+if buttonA.value and not buttonB.value:
+    if pressedA == 0:
+        pressedA = 1
+        myScreen.message("Shutdown", defaultColor, pendingBg)
+        check_call(['sudo', 'poweroff'])
+        pressedA = 0
 
 client.connect(MQTT_BROKER, MQTT_PORT)
 client.loop_forever()
