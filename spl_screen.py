@@ -68,7 +68,7 @@ class SPScreen(object):
 
     def message(self, message, color, bg):
         self.clear(bg)
-        # self.y = self.top
+        self.y = self.top
 
         parts = message.split('|')
         for x in parts:
