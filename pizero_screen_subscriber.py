@@ -11,7 +11,7 @@ from pizero_screen_config import pizero_screen_config
 logging.basicConfig(filename='/tmp/debug.log', level=logging.DEBUG)
 
 MQTT_BROKER = pizero_screen_config["mqtt_broker"]
-MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
+# MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
 MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/temp/puck/#',1)]
