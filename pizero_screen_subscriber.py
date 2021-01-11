@@ -61,22 +61,22 @@ def on_message(client, userdata, msg):
         myScreen.message('REBOOT', defaultColor, errorBg)
         time.sleep(3)
         os.system("sudo systemctl reboot -i")
-    if "99" in m:
-        myScreen.message('REBOOT', defaultColor, errorBg)
-        time.sleep(3)
-        os.system("sudo systemctl reboot -i")
-    if 99 in m:
-        myScreen.message('REBOOT', defaultColor, errorBg)
-        time.sleep(3)
-        os.system("sudo systemctl reboot -i")
-    if "98" in m:
-        myScreen.message('SHUTDOWN', defaultColor, errorBg)
-        time.sleep(3)
-        os.system("sudo shutdown -h now")
-    if 98 in m:
-        myScreen.message('SHUTDOWN', defaultColor, errorBg)
-        time.sleep(3)
-        os.system("sudo shutdown -h now")
+    # if "99" in m:
+    #     myScreen.message('REBOOT', defaultColor, errorBg)
+    #     time.sleep(3)
+    #     os.system("sudo systemctl reboot -i")
+    # if 99 in m:
+    #     myScreen.message('REBOOT', defaultColor, errorBg)
+    #     time.sleep(3)
+    #     os.system("sudo systemctl reboot -i")
+    # if "98" in m:
+    #     myScreen.message('SHUTDOWN', defaultColor, errorBg)
+    #     time.sleep(3)
+    #     os.system("sudo shutdown -h now")
+    # if 98 in m:
+    #     myScreen.message('SHUTDOWN', defaultColor, errorBg)
+    #     time.sleep(3)
+    #     os.system("sudo shutdown -h now")
     if "SHUTDOWN" in m:
         myScreen.message('SHUTDOWN', defaultColor, errorBg)
         time.sleep(3)
