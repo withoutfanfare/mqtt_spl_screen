@@ -14,7 +14,7 @@ MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 # MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
-MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/temp/puck/0000',1)]
+MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/battery/puck',1)]
 
 defaultBg = (16, 23, 31)
 initBg = (78, 3, 97)
