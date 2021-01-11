@@ -59,8 +59,10 @@ def on_message(client, userdata, msg):
     if "REBOOT" in m:
         os.system("sudo systemctl reboot -i")
     if "99" in m:
+        myScreen.message(m, defaultColor, bg)
         os.system("sudo systemctl reboot -i")
     if 99 in m:
+        myScreen.message(m, defaultColor, bg)
         os.system("sudo systemctl reboot -i")
     if "SHUTDOWN" in m:
         os.system("sudo shutdown -h now")
