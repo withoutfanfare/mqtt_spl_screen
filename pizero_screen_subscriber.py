@@ -4,6 +4,7 @@ import logging
 
 import digitalio
 import board
+import time
 
 from spl_screen import SPScreen
 from pizero_screen_config import pizero_screen_config
@@ -57,20 +58,28 @@ def on_message(client, userdata, msg):
     if "TEMP" in m:
         bg = pendingBg
     if "REBOOT" in m:
+        myScreen.message('REBOOT', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo systemctl reboot -i")
     if "99" in m:
-        myScreen.message('REBOOT', errorBg, bg)
+        myScreen.message('REBOOT', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo systemctl reboot -i")
     if 99 in m:
-        myScreen.message('REBOOT', errorBg, bg)
+        myScreen.message('REBOOT', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo systemctl reboot -i")
     if "98" in m:
-        myScreen.message('SHUTDOWN', errorBg, bg)
+        myScreen.message('SHUTDOWN', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo shutdown -h now")
     if 98 in m:
-        myScreen.message('SHUTDOWN', errorBg, bg)
+        myScreen.message('SHUTDOWN', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo shutdown -h now")
     if "SHUTDOWN" in m:
+        myScreen.message('SHUTDOWN', defaultColor, errorBg)
+        time.sleep(3)
         os.system("sudo shutdown -h now")
 
     myScreen.message(m, defaultColor, bg)
@@ -82,13 +91,13 @@ client.on_message = on_message
 if buttonB.value and not buttonA.value:
     if pressedB == 0:
         pressedB = 1
-        myScreen.message("Reboot", defaultColor, pendingBg)
+        myScreen.message("Reboot", defaultColor, errorBg)
         check_call(['sudo', 'reboot'])
         pressedB = 0
 if buttonA.value and not buttonB.value:
     if pressedA == 0:
         pressedA = 1
-        myScreen.message("Shutdown", defaultColor, pendingBg)
+        myScreen.message("Shutdown", defaultColor, errorBg)
         check_call(['sudo', 'poweroff'])
         pressedA = 0
 
