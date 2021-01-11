@@ -14,7 +14,7 @@ MQTT_BROKER = pizero_screen_config["mqtt_broker"]
 # MQTT_TOPIC = pizero_screen_config["mqtt_topic"]
 MQTT_PORT = pizero_screen_config["mqtt_port"]
 
-MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/temp/puck/#',1)]
+MQTT_TOPIC = [(pizero_screen_config['mqtt_topic'],2),('/ble/temp/puck/0000',1)]
 
 defaultBg = (16, 23, 31)
 initBg = (78, 3, 97)
@@ -57,6 +57,10 @@ def on_message(client, userdata, msg):
     if "TEMP" in m:
         bg = pendingBg
     if "REBOOT" in m:
+        os.system("sudo systemctl reboot -i")
+    if "99" in m:
+        os.system("sudo systemctl reboot -i")
+    if 99 in m:
         os.system("sudo systemctl reboot -i")
     if "SHUTDOWN" in m:
         os.system("sudo shutdown -h now")
